@@ -1,0 +1,11 @@
+ERROR - Не удалось вызвать хранимую процедуру: (1062) Duplicate entry '810907301513' for key 'iin_UNIQUE'
+ERROR - Не удалось вызвать хранимую процедуру: (1062) Duplicate entry '810907301513' for key 'iin_UNIQUE'
+ERROR - Не удалось вызвать хранимую процедуру: (1406) Data too long for column 'in_mobile_phone' at row 1
+ERROR - Сервис скоринга вернул ошибку: ()
+ERROR - Сервис скоринга вернул ошибку: (/ by zero)
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'
+ERROR - Не удалось вызвать хранимую процедуру: (1054) Unknown column 'application_id' in 'order clause'

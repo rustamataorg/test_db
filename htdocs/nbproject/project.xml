@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.php.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/php-project/1">
+            <name>CreditApp</name>
+        </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>выдан</word>
+            <word>до</word>
+            <word>документа</word>
+            <word>ИИН</word>
+            <word>Отчество</word>
+            <word>плата</word>
+            <word>Пол</word>
+            <word>рождения</word>
+            <word>телефон</word>
+            <word>Фамилия</word>
+        </spellchecker-wordlist>
+    </configuration>
+</project>
