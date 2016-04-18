@@ -9,8 +9,22 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+    //Запрещаем submit формы по нажатию Enter, чтобы пользователь случайно не отправлял некорректную форму
+    function stopReturnKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            return false;
+        }
+    }
+    document.onkeypress = stopReturnKey;
+</script>
+
 <input type="hidden" name="usd_rate" id="usd_rate" value="<?php extract($data);
-echo $data['USD']; ?>">
+echo $data['USD'];
+?>">
 <form method="post" action="confirmCredit" name="credit_form" id="credit_form" onsubmit="return validateCreditForm(this.submited);">
     <div class="credit_info">
         <h3>Данные о кредите</h3>

@@ -1,7 +1,7 @@
 <script>
-jQuery(function($){
-   $("#client_iin").mask("999999999999",{placeholder:" "});
-});
+    jQuery(function ($) {
+        $("#client_iin").mask("999999999999", {placeholder: " "});
+    });
 </script>
 
 <div id="search_form_div">
@@ -15,8 +15,13 @@ jQuery(function($){
 </div>
 <br><br>
 
-<?php if (isset($data)) { ?>
-    <div class="application_list">
+<?php if (isset($data)) {
+    extract($data);
+    echo '<p>' . $data['client']['iin'] . '</p>';
+    echo '<p>' . $data['client']['lastname'] . " " . $data['client']['name'] . " " . $data['client']['surname'] . '</p>';
+    echo '<br>';
+    ?>
+        <div class="application_list">
         <table>
             <tr>
                 <th colspan="5">ЗАЯВКИ</th>
@@ -30,7 +35,6 @@ jQuery(function($){
             </tr>
 
             <?php
-            extract($data);
             foreach ($data['applications'] as $rec) {
                 ?>
                 <tr>
@@ -42,7 +46,6 @@ jQuery(function($){
                 </tr>
                 <?php
             }
-            #}
             ?>
         </table>
     </div>

@@ -34,5 +34,10 @@ class Model_Login extends Model {
         }
         return $data;
     }
-
+    
+    function setUserAuthorized($userId){
+        session_start();
+        $_SESSION['id'] = $userId;//Сохраняем id пользователя системы
+    }
+    
 }

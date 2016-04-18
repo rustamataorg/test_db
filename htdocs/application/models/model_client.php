@@ -141,20 +141,17 @@ class Model_Client extends Model {
         $curl = curl_init($URL);
         #curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         #curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POST, true);// Сообщение curl, что нужно использовать HTTP POST
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: text/plain'));
         curl_setopt($curl, CURLOPT_POSTFIELDS, $iin);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($curl);
-        curl_close($curl);
-        return $output;
-    }
-
-    public function resetCurrentClient() {
-        session_start();
-        if (isset($_SESSION['current_client_id'])) {
-            unset($_SESSION['current_client_id']);
+        $response = curl_exec($curl);// Обращение к REST, получение результата
+        curl_close($curl);// Закрытие сеанса
+        $result = json_decode($response);//Преобразование результата из формата JSON в массив PHP 
+        if ($result->status == "ERROR") {//Сервис проверки ИИН вернул ошибку, пишем в лог
+            Logger::getLogger('model_client_logger')->error("Сервис проверки ИИН вернул ошибку: (" . $result->errorMsg . ")");
         }
+        return $result;
     }
 
 }

@@ -11,6 +11,18 @@ jQuery(function($){
 });
 </script>
 
+<script type="text/javascript">
+    //Запрещаем submit формы по нажатию Enter, чтобы пользователь случайно не отправлял некорректную форму
+    function stopReturnKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type == "text")) {
+            return false;
+        }
+    }
+    document.onkeypress = stopReturnKey;
+</script>
+
 <form method="post" action="submit" name="client_form" onsubmit="return validateClientForm(this.submited);">
     <div class="client_info">
         <h3>Данные о клиенте</h3>

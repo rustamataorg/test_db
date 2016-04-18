@@ -40,10 +40,4 @@ class Model_Main extends Model {
         return $data;
     }
 
-    public function logout() {
-        session_start();
-        session_destroy(); //Убиваем сессию
-        header('Location:/'); //Идём в корень
-    }
-
 }

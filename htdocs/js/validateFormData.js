@@ -70,19 +70,34 @@ function validateClientForm(buttonName) {
             document.getElementById("lastname_validation_message").innerHTML = "Введите фамилию";
             validStatus = false;
         } else {
-            document.getElementById("lastname_validation_message").innerHTML = "";
+            if (get2Alphabets(lastname)) {
+                document.getElementById("lastname_validation_message").innerHTML = "Символы из разных алфавитов";
+                validStatus = false;
+            } else {
+                document.getElementById("lastname_validation_message").innerHTML = "";
+            }
         }
         if (name === null || name === '') {
             document.getElementById("name_validation_message").innerHTML = "Введите имя";
             validStatus = false;
         } else {
-            document.getElementById("name_validation_message").innerHTML = "";
+            if (get2Alphabets(name)) {
+                document.getElementById("name_validation_message").innerHTML = "Символы из разных алфавитов";
+                validStatus = false;
+            } else {
+                document.getElementById("name_validation_message").innerHTML = "";
+            }
         }
         if (surname === null || surname === '') {
             document.getElementById("surname_validation_message").innerHTML = "Введите отчество ";
             validStatus = false;
         } else {
-            document.getElementById("surname_validation_message").innerHTML = "";
+            if (get2Alphabets(surname)) {
+                document.getElementById("surname_validation_message").innerHTML = "Символы из разных алфавитов";
+                validStatus = false;
+            } else {
+                document.getElementById("surname_validation_message").innerHTML = "";
+            }
         }
         if (mobile_phone === null || mobile_phone === '') {
             document.getElementById("mobile_validation_message").innerHTML = "Введите мобильный телефон";
@@ -221,4 +236,12 @@ function calcCreditInfo() {//Вычисление дополнительных �
 function getAnnuity(amount, period, yearlyRate) {//Расчёт аннуитетного платежа
     montlyRate = yearlyRate / 12 / 100;
     return amount * (montlyRate * Math.pow(1 + montlyRate, period)) / (Math.pow(1 + montlyRate, period) - 1);
+}
+
+function get2Alphabets(str) {
+    if (str.search(/[A-z]/i) !== -1 && str.search(/[А-яЁёӘІҢҒҮҰҚӨҺәіңғүұқөһ]/i) !== -1) {
+        return true;
+    } else {
+        return false;
+    }
 }

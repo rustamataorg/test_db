@@ -3,13 +3,18 @@
 class Controller_Rejected extends Controller {
 
     function __construct() {
-        #$this->model = new Model_Rejected();
+        $this->model = new Model_Rejected();
         $this->view = new View();
     }
 
     function action_index() {
-        $this->view->generate('rejected_view.php', 'template_view.php');
+        if ($this->model->isUserAuthorized()) {//Пользователь авторизован
+            $this->view->generate('rejected_view.php', 'template_view.php');
+        } else {//Пользователь не авторизован
+            $this->model->logout(); //Выходим из системы
+        }
     }
+
 }
 
 /* 

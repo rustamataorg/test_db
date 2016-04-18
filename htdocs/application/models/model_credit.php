@@ -139,7 +139,6 @@ class Model_Credit extends Model {
         $json = json_encode($parameters);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        #curl_setopt($curl, CURLOPT_HEADER, 1); //Возвращать заголовки
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Content-Length: ' . strlen($json)));
@@ -152,13 +151,6 @@ class Model_Credit extends Model {
         }
 
         return $result; //Преобразование результата из формата JSON в массив PHP 
-    }
-
-    public function resetCurrentClient() {
-        session_start();
-        if (isset($_SESSION['current_client_id'])) {
-            unset($_SESSION['current_client_id']);
-        }
     }
 
 }
