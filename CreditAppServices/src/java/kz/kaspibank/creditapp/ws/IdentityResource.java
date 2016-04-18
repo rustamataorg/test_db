@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import kz.kaspibank.creditapp.identity.IdentityNumber;
+import kz.kaspibank.creditapp.identity.IdentityValidationResult;
 
 /**
  * REST Web Service
@@ -59,11 +60,11 @@ public class IdentityResource {
      * @return an instance of java.lang.String
      */
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/validateIIN")
-    public String validateIIN (String iin){
+    public IdentityValidationResult validateIIN (String iin){
         IdentityNumber identityNumber = new IdentityNumber(iin);
-        return String.valueOf(identityNumber.isValid());
+        return identityNumber.isValid();
     }
 }

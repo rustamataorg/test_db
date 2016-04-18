@@ -17,29 +17,55 @@ public class IdentityNumber {
         this.iin = iin.trim();
     }
 
-    public boolean isValid() {
-        if (this.iin.length()!=12)//Длина ИИН отличается от 12 символов
-            return false;
-        //!Можно реализовать дополнительные проверки года, сверки года и века и т.п.   
-        int total = 0;
-        for (int i = 1; i < 12; i++) {//Перебираем разряды
-            total += i * Integer.parseInt(String.valueOf(iin.charAt(i - 1)));//Считаем сумму произведений значения разряда на порядок
-        }
-        if ((total % 11) != 10) {
-            //Сравнивает контрольный разряд с остатком от деления суммы на 11, если совпадёт, то ИИН корректный
-            return ((total % 11) == Integer.parseInt(String.valueOf(iin.charAt(11))));
-        } else {//Остаток от деления суммы на 11 равен 10, проводим дополнительную проверку
-            total = 0;
-            int positionWeight;
+    public IdentityValidationResult isValid() {
+        IdentityValidationResult identityValidationResult = new IdentityValidationResult();
+
+        try {
+            if (this.iin.length() != 12)//Длина ИИН отличается от 12 символов
+            {
+                identityValidationResult.setValidation(IdentityValidationResult.Validation.INVALID);
+                identityValidationResult.setStatus(IdentityValidationResult.Status.SUCCESS);
+                return identityValidationResult;
+            }
+            int total = 0;
             for (int i = 1; i < 12; i++) {//Перебираем разряды
-                positionWeight = (i + 2) % 11 > 0 ? (i + 2) % 11 : i + 2;//Считаем вес позиции
-                total += positionWeight * Integer.parseInt(String.valueOf(iin.charAt(i - 1)));//Считаем сумму произведений значения разряда на его вес
+                total += i * Integer.parseInt(String.valueOf(iin.charAt(i - 1)));//Считаем сумму произведений значения разряда на порядок
             }
-            if ((total % 11) == 10) {//Остаток от деления суммы на 11 снова равен 10, значит данный ИИН не используется
-                return false;
-            } else {
-                return (total % 11) == Integer.parseInt(String.valueOf(iin.charAt(11)));//Сравнивает контрольный разряд с остатком от деления суммы на 11, если совпадёт, то ИИН корректный
+            if ((total % 11) != 10) {
+                //Сравнивает контрольный разряд с остатком от деления суммы на 11, если совпадёт, то ИИН корректный
+                if ((total % 11) == Integer.parseInt(String.valueOf(iin.charAt(11)))) {
+                    identityValidationResult.setValidation(IdentityValidationResult.Validation.VALID);
+                } else {
+                    identityValidationResult.setValidation(IdentityValidationResult.Validation.INVALID);
+                }
+                identityValidationResult.setStatus(IdentityValidationResult.Status.SUCCESS);
+                return identityValidationResult;
+            } else {//Остаток от деления суммы на 11 равен 10, проводим дополнительную проверку
+                total = 0;
+                int positionWeight;
+                for (int i = 1; i < 12; i++) {//Перебираем разряды
+                    positionWeight = (i + 2) % 11 > 0 ? (i + 2) % 11 : i + 2;//Считаем вес позиции
+                    total += positionWeight * Integer.parseInt(String.valueOf(iin.charAt(i - 1)));//Считаем сумму произведений значения разряда на его вес
+                }
+                if ((total % 11) == 10) {//Остаток от деления суммы на 11 снова равен 10, значит данный ИИН не используется
+                    identityValidationResult.setValidation(IdentityValidationResult.Validation.INVALID);
+                    identityValidationResult.setStatus(IdentityValidationResult.Status.SUCCESS);
+                    return identityValidationResult;
+                } else {
+                    if ((total % 11) == Integer.parseInt(String.valueOf(iin.charAt(11)))) {//Сравнивает контрольный разряд с остатком от деления суммы на 11, если совпадёт, то ИИН корректный
+                        identityValidationResult.setValidation(IdentityValidationResult.Validation.VALID);
+                    } else {
+                        identityValidationResult.setValidation(IdentityValidationResult.Validation.INVALID);
+                    }
+                    identityValidationResult.setStatus(IdentityValidationResult.Status.SUCCESS);
+                    return identityValidationResult;
+                }
             }
+        } catch (Exception ex) {
+            identityValidationResult.setValidation(IdentityValidationResult.Validation.NONE);
+            identityValidationResult.setStatus(IdentityValidationResult.Status.ERROR);
+            identityValidationResult.setErrorMsg(ex.getMessage());
+            return identityValidationResult;
         }
     }
 }
